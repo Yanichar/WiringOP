@@ -43,7 +43,7 @@ SRC	=	blink.c blink8.c blink12.c					\
 		nes.c								\
 		softPwm.c softTone.c 						\
 		delayTest.c serialRead.c serialTest.c okLed.c ds1302.c		\
-		rht03.c piglow.c
+		rht03.c piglow.c cc2500Test.c
 
 OBJ	=	$(SRC:.c=.o)
 
@@ -147,6 +147,10 @@ ds1302:	ds1302.o
 piglow:	piglow.o
 	@echo [link]
 	@$(CC) -o $@ piglow.o $(LDFLAGS) $(LDLIBS)
+	
+cc2500Test:	cc2500Test.o
+	@echo [link]
+	@$(CC) -o $@ cc2500Test.o $(LDFLAGS) $(LDLIBS)
 
 
 .c.o:
