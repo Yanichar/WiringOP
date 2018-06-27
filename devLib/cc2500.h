@@ -27,6 +27,8 @@
 
 #include <stdint.h>
 
+typedef enum {RX_FIFO_BYTES_AVAILABLE, TX_FIFO_BYTES_FREE} fifo_status_mode_enum;
+
 void wait_cycles(uint16_t);
 void spi_setup(void);
 void cc_write_reg(uint8_t, uint8_t);
@@ -36,6 +38,7 @@ void cc_read_burst_reg(uint8_t, uint8_t *, uint8_t);
 uint8_t cc_read_status(uint8_t);
 void cc_strobe(uint8_t);
 void cc_powerup_reset(void);
+uint8_t cc_read_chip_status_byte(fifo_status_mode_enum fifo_mode);
 
 // Configuration Registers
 #define TI_CCxxx0_IOCFG2       0x00        // GDO2 output pin configuration

@@ -130,6 +130,21 @@ void cc_strobe(uint8_t strobe)
   digitalWrite (CC2500_CS, HIGH);
 }
 
+uint8_t cc_read_chip_status_byte(fifo_status_mode_enum fifo_mode)
+{
+  uint8_t result = 0; 
+  if(fifo_mode == TX_FIFO_BYTES_FREE)
+  {
+	result = 1<<7;
+  }
+  
+  digitalWrite (CC2500_CS, LOW);
+  wiringPiSPIDataRW(0, &result, 1);
+  digitalWrite (CC2500_CS, HIGH);
+  return result;
+}
+
+
 void cc_powerup_reset(void)
 {
   // TODO: implement me
