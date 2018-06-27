@@ -42,7 +42,7 @@ int8_t copmare_and_print_result(uint8_t expected, uint8_t actual)
   }
   else
   {
-    printf("FAIL\n");
+    printf("FAIL! expected:0x%02x, actual:0x%02x\n", expected, actual);
 	return -1;
   }
 }
@@ -89,6 +89,15 @@ int main (void)
      failCounter++;
   }
   
+  printf("Chip status read...");
+  uint8_t chip_status = cc_read_chip_status_byte(RX_FIFO_BYTES_AVAILABLE);
+  
+  testCounter++;
+  if(copmare_and_print_result(0x0f, chip_status))
+  {
+     failCounter++;
+  }
+    
   printf("Register burst write and read back...");
   uint8_t testWrite[2];
   uint8_t testRead[2];
@@ -125,6 +134,8 @@ int main (void)
   {
     printf("Testing finished, some tests are FAILED\n");
   }
+  
+  cc_write_reg(TI_CCxxx0_IOCFG0, 0x3C);
   
   return 0 ;
 }
